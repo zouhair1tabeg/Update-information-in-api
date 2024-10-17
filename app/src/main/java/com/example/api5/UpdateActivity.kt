@@ -1,6 +1,7 @@
 package com.example.api5
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -31,6 +32,7 @@ class UpdateActivity : AppCompatActivity() {
         val up_image = findViewById<EditText>(R.id.up_image)
         val up_checkbox = findViewById<CheckBox>(R.id.up_checkBox)
         val up_btn = findViewById<Button>(R.id.up_btn)
+        val del_button = findViewById<Button>(R.id.del_btn)
 
         val carId = intent.getIntExtra("id", 0)
         val nom = intent.getStringExtra("name")
@@ -75,5 +77,41 @@ class UpdateActivity : AppCompatActivity() {
                 }
             })
         }
+
+
+
+        del_button.setOnClickListener {
+            val retrofit4 = Retrofit.Builder()
+                .baseUrl("https://apiyes.net/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val apiService4 = retrofit4.create(ApiService::class.java)
+            val del_car = Car(id = carId, name = "" , price = 0.0 , false , "")
+
+            apiService4.deleteCar(del_car).enqueue(object : Callback<AddResponse> {
+                override fun onResponse(call: Call<AddResponse>, response: Response<AddResponse>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(applicationContext, "Voiture supprimée avec succès", Toast.LENGTH_LONG).show()
+                        finish()
+                    } else {
+                        // Log the error response
+                        val errorBody = response.errorBody()?.string()
+                        Log.e("DeleteCarError", "Error: $errorBody")
+                        Toast.makeText(applicationContext, "Échec de la suppression: $errorBody", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<AddResponse>, t: Throwable) {
+                    Log.e("DeleteCarFailure", "Erreur: ${t.message}")
+                    Toast.makeText(applicationContext, "Erreur: ${t.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+
+
+
+
+
     }
 }

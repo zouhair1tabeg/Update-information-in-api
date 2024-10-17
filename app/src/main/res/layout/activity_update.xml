@@ -32,11 +32,27 @@
         android:layout_height="wrap_content"
         android:text="Full Options" />
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/up_btn"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:id="@+id/up_btn"
+            android:layout_gravity="center"
+            android:layout_marginRight="40dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/del_btn"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
 </LinearLayout>

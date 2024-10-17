@@ -2,8 +2,10 @@ package com.example.api5
 
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 
 data class Car(
@@ -31,4 +33,9 @@ interface ApiService {
 
     @POST("/CarAPI/update.php")
     fun updateCar(@Body cars: Car): Call<AddResponse>
+
+
+    @POST("/CarAPI/delete.php")
+    fun deleteCar(@Body cars: Car): Call<AddResponse>
+
 }
